@@ -25,7 +25,7 @@ fun HomePage() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(painter = painterResource(id = R.drawable.logo), contentDescription = "", modifier = Modifier
-            .height(height = 110.dp)
+            .height(height = 210.dp)
             .fillMaxWidth())
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(value = keyword, onValueChange = {keyword = it}, label = { Text(text = "Search")})
