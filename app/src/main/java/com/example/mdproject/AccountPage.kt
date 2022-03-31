@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mdproject.ui.theme.UiMain
+import com.example.mdproject.ui.theme.UIMain
 
 
 @Composable
@@ -37,7 +37,7 @@ fun TestCard() {
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
             elevation = 10.dp,
-            backgroundColor = UiMain
+            backgroundColor = UIMain
         ){
             Column(modifier = Modifier.padding(8.dp)){
                 Text(text = stringResource(id = R.string.Name)+" " + accDataVM.FirstName.value + " " + accDataVM.LastName.value, fontSize = 20.sp)
