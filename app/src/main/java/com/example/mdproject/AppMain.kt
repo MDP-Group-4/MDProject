@@ -1,6 +1,8 @@
 package com.example.mdproject
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -36,11 +38,10 @@ fun MainView() {
 fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE){
         composable(route = HOME_ROUTE){ HomePage()}
-        composable(route = ACCOUNT_ROUTE){ AccountPage() }
+        composable(route = ACCOUNT_ROUTE){ TestCard() } /* CHANGE */
         composable(route = LISTINGS_ROUTE){ ListedProducts() }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
     }
-
 }
 @Composable
 fun TopBar() {
@@ -51,10 +52,7 @@ fun TopBar() {
         horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
     ){
         Text(text = stringResource(R.string.TopBarUsername))
-        OutlinedButton(onClick = { /*TODO*/ },
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = Color.Black)
-        ){
+        OutlinedButton(onClick = { /*TODO*/ }){
             Text(text = "Log out")
         }
     }
@@ -68,13 +66,19 @@ fun BottomBar(navController: NavHostController) {
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ){
-        Icon(painter = painterResource(id = R.drawable.ic_home), contentDescription ="home", tint = Color.Unspecified,
-            modifier = Modifier.clickable { navController.navigate(HOME_ROUTE) })
-        Icon(painter = painterResource(id = R.drawable.ic_listings), contentDescription ="listings", tint = Color.Unspecified,
-            modifier = Modifier.clickable { navController.navigate(LISTINGS_ROUTE) })
-        Icon(painter = painterResource(id = R.drawable.ic_list), contentDescription ="list", tint = Color.Unspecified,
-            modifier = Modifier.clickable { navController.navigate(CREATELISTING_ROUTE) })
-        Icon(painter = painterResource(id = R.drawable.ic_account), contentDescription ="account page", tint = Color.Unspecified,
-            modifier = Modifier.clickable { navController.navigate(ACCOUNT_ROUTE) })
+        BottomIcon(navController = navController, route = HOME_ROUTE, PainterId = R.drawable.ic_home)
+        BottomIcon(navController = navController, route = LISTINGS_ROUTE, PainterId = R.drawable.ic_listings)
+        BottomIcon(navController = navController, route = CREATELISTING_ROUTE, PainterId = R.drawable.ic_list)
+        BottomIcon(navController = navController, route = ACCOUNT_ROUTE, PainterId = R.drawable.ic_account)
+
+    }
+}
+
+@Composable
+fun BottomIcon(navController: NavHostController, route: String, PainterId: Int) {
+    Card( modifier = Modifier
+        .clickable { navController.navigate(route) }
+        .width(100.dp), backgroundColor = Color.Transparent, elevation = 0.dp) {
+        Icon(painter = painterResource(id = PainterId), contentDescription ="NavigationIcon", tint = Color.Unspecified)
     }
 }
