@@ -18,16 +18,14 @@ fun HomePage() {
     //Text(text = stringResource(id = R.string.Test))
     var keyword by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
+    Column(modifier = Modifier.fillMaxWidth()
         .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(painter = painterResource(id = R.drawable.logo), contentDescription = "", modifier = Modifier
-            .height(height = 110.dp)
+            .height(height = 210.dp)
             .fillMaxWidth())
-        Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(value = keyword, onValueChange = {keyword = it}, label = { Text(text = "Search")})
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedButton(onClick = { /*TODO*/ }) {
