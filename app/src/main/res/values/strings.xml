@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">MDProject</string>
-    <string name="AccountTop">Account Page</string>
+    <string name="Name">Name: </string>
+    <string name="Email">Email: </string>
+    <string name="Address">Address: </string>
+    <string name="PhoneNum">Phone Number: </string>
     <string name="AccountListings">Your Listings</string>
+    <string name="ListingCreTop">Create Listing</string>
     <!--Delete later-->
-    <string name="AccountName">Account Name:</string>
-    <string name="AccountAddress">Address:</string>
-    <string name="AccountPhoneNumber">Phone Number:</string>
     <string name="TopBarUsername">Test</string>
     <string name="Test">Test</string>
     <!--Delete later-->
