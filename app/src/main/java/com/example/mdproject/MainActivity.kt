@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mdproject.ui.theme.CreateAccount
 import com.example.mdproject.ui.theme.MDProjectTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    CreateAccount()
+                    CreateAccount(this)
                 }
             }
         }

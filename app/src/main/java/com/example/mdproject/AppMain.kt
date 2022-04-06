@@ -17,6 +17,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 const val HOME_ROUTE = "home"
 const val ACCOUNT_ROUTE = "account"
@@ -52,9 +54,9 @@ fun TopBar() {
         horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
     ){
         Text(text = stringResource(R.string.TopBarUsername))
-        OutlinedButton(onClick = { /*TODO*/ }){
+        OutlinedButton(onClick = { Firebase.auth.signOut() }){
             Text(text = "Log out")
-        }
+            }
     }
 }
 
