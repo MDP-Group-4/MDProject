@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 @Composable
 
 fun HomePage() {
-    //Text(text = stringResource(id = R.string.Test))
     var keyword by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxWidth()
@@ -33,7 +32,6 @@ fun HomePage() {
         Spacer(modifier = Modifier.height(50.dp))
             OutlinedButton(onClick = { /*TODO*/ }) {
                 Text(text = "Messages")
+            }
     }
-
-
-}}
+}

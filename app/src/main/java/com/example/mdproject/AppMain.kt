@@ -1,8 +1,6 @@
 package com.example.mdproject
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,25 +8,34 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mdproject.viewmodel.AccountDataViewModel
+import com.example.mdproject.viewmodel.LoginViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 const val HOME_ROUTE = "home"
 const val ACCOUNT_ROUTE = "account"
 const val LISTINGS_ROUTE = "listings"
 const val CREATELISTING_ROUTE = "listing creation"
+const val LOGIN_ROUTE = "login"
 
 @Composable
 fun MainView() {
     val navController = rememberNavController()
+    val loginVM = viewModel<LoginViewModel>(LocalContext.current as ViewModelStoreOwner)
 
     Scaffold(
-        topBar = {TopBar()},
+        topBar = {TopBar(navController, loginVM)},
         bottomBar = {BottomBar(navController)},
         content = { MainContentView(navController) }
     ) 
@@ -36,25 +43,37 @@ fun MainView() {
 
 @Composable
 fun MainContentView(navController: NavHostController) {
+    val loginVM = viewModel<LoginViewModel>()
     NavHost(navController = navController, startDestination = HOME_ROUTE){
         composable(route = HOME_ROUTE){ HomePage()}
-        composable(route = ACCOUNT_ROUTE){ TestCard() } /* CHANGE */
+        composable(route = ACCOUNT_ROUTE){ AccountPage() }
         composable(route = LISTINGS_ROUTE){ ListedProducts() }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
+        composable(route = LOGIN_ROUTE){Login(loginVM, navController)}
     }
 }
+
 @Composable
-fun TopBar() {
+fun TopBar(navController: NavHostController, loginVM: LoginViewModel) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .background(Color(color = 0xFF52988B))
         .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
     ){
-        Text(text = stringResource(R.string.TopBarUsername))
-        OutlinedButton(onClick = { /*TODO*/ }){
-            Text(text = "Log out")
-        }
+            Text(text = loginVM.username.value)
+            OutlinedButton(onClick = { if (loginVM.username.value.isEmpty()){
+                    navController.navigate(LOGIN_ROUTE)
+                } else{
+                    loginVM.logout()
+                    navController.navigate(HOME_ROUTE)
+                } }) {
+                if (loginVM.username.value.isEmpty()){
+                    Text(text = "Login")
+                }else {
+                    Text(text = "Logout")
+                }
+            }
     }
 }
 
@@ -70,7 +89,6 @@ fun BottomBar(navController: NavHostController) {
         BottomIcon(navController = navController, route = LISTINGS_ROUTE, PainterId = R.drawable.ic_listings)
         BottomIcon(navController = navController, route = CREATELISTING_ROUTE, PainterId = R.drawable.ic_list)
         BottomIcon(navController = navController, route = ACCOUNT_ROUTE, PainterId = R.drawable.ic_account)
-
     }
 }
 
@@ -82,3 +100,16 @@ fun BottomIcon(navController: NavHostController, route: String, PainterId: Int) 
         Icon(painter = painterResource(id = PainterId), contentDescription ="NavigationIcon", tint = Color.Unspecified)
     }
 }
+
+/*
+
+
+
+OutlinedButton(onClick = { navController.navigate(LOGIN_ROUTE) }) {
+                if (loginVM.username.value != null){
+                    Text(text = "Logout")
+                } else{
+                    Text(text = "Login")
+                }
+            }
+* */
