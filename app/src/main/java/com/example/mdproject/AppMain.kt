@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,6 +23,7 @@ const val HOME_ROUTE = "home"
 const val ACCOUNT_ROUTE = "account"
 const val LISTINGS_ROUTE = "listings"
 const val CREATELISTING_ROUTE = "listing creation"
+const val SINGLELISTING_ROUTE = "singlelisting"
 
 @Composable
 fun MainView() {
@@ -39,8 +41,9 @@ fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE){
         composable(route = HOME_ROUTE){ HomePage()}
         composable(route = ACCOUNT_ROUTE){ TestCard() } /* CHANGE */
-        composable(route = LISTINGS_ROUTE){ ListedProducts() }
+        composable(route = LISTINGS_ROUTE){ ListedProducts(navController) }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
+        composable(route = SINGLELISTING_ROUTE){ SingleListing() }
     }
 }
 @Composable

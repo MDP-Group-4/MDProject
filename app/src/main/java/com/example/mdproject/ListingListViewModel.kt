@@ -1,6 +1,7 @@
 package com.example.mdproject
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
@@ -25,7 +26,7 @@ class ListingListViewModel: ViewModel() {
                     )
                     Listings.add(newListing)
 
-                    /*Log.d("xxxxxxxxxxxxxxx", contents.toString())
+/*                    Log.d("xxxxxxxxxxxxxxx", contents.toString())
                     Log.d("zzzzzzzzzzzzzz" , contents.get("Timestamp").toString())*/
                 }
             }
