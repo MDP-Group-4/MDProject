@@ -1,5 +1,6 @@
-package com.example.mdproject
+package com.example.mdproject.ui.theme
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -10,33 +11,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.mdproject.R
+
 
 @Composable
-fun Login(){
-    var email by remember { mutableStateOf(value="") }
-    var pw by remember { mutableStateOf(value = "") }
+fun CreateAccount(){
+    var username by remember { mutableStateOf("")}
+    var email by remember { mutableStateOf("")}
+    var pw by remember { mutableStateOf("")}
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
+            .height(300.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        androidx.compose.foundation.Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "",
-            modifier = Modifier
-                .height(height = 210.dp)
-                .fillMaxWidth()
-        )
-        OutlinedTextField(value = email, onValueChange = { email = it}, label = { Text(text = "Email") } )
+        Image(painter = painterResource(id = R.drawable.logo), contentDescription = "", modifier = Modifier
+            .height(height = 210.dp)
+            .fillMaxWidth())
+        OutlinedTextField(value = username, onValueChange = {username = it}, label = { Text(text = "Username")} )
+        Spacer(modifier = Modifier.height(10.dp))
+        OutlinedTextField(value = email, onValueChange = {username = email}, label = { Text(text = "Email")} )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(value = pw, onValueChange = { pw = it}, label = { Text(text = "Password") } ,
             visualTransformation = PasswordVisualTransformation())
         Spacer(modifier = Modifier.height(10.dp))
-        OutlinedButton(onClick = { /*TODO*/ }) {
-            Text(text = "Login")
-        }
+        OutlinedButton(onClick = { /*TODO*/ }) { Text(text = "Create an account") }
+
     }
+
+
+
+
+
+
+
 }
