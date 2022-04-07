@@ -15,23 +15,28 @@ import androidx.compose.ui.unit.dp
 @Composable
 
 fun HomePage() {
-    var keyword by remember { mutableStateOf("") }
+    //Text(text = stringResource(id = R.string.Test))
+//    var keyword by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxWidth()
+    Column(modifier = Modifier
+        .fillMaxWidth()
         .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Image(painter = painterResource(id = R.drawable.logo), contentDescription = "", modifier = Modifier
             .height(height = 210.dp)
             .fillMaxWidth())
-        OutlinedTextField(value = keyword, onValueChange = {keyword = it}, label = { Text(text = "Search")})
+        Search()
+/*        OutlinedTextField(value = keyword, onValueChange = {keyword = it}, label = { Text(text = "Search")})
         Spacer(modifier = Modifier.height(10.dp))
-        OutlinedButton(onClick = { /*TODO*/ }) {
-            Text(text = "Advanced Filters") }
+        OutlinedButton(onClick = { TODO }) {
+            Text(text = "Advanced Filters") }*/
         Spacer(modifier = Modifier.height(50.dp))
             OutlinedButton(onClick = { /*TODO*/ }) {
                 Text(text = "Messages")
-            }
     }
-}
+
+
+}}
