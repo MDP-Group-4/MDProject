@@ -48,15 +48,14 @@ fun MainContentView(navController: NavHostController) {
     val loginVM = viewModel<LoginViewModel>()
     NavHost(navController = navController, startDestination = HOME_ROUTE){
         composable(route = HOME_ROUTE){ HomePage()}
-        composable(route = ACCOUNT_ROUTE){ TestCard() } /* CHANGE */
         composable(route = LISTINGS_ROUTE){ ListedProducts(navController) }
         composable(route = ACCOUNT_ROUTE){ AccountPage() }
-        composable(route = LISTINGS_ROUTE){ ListedProducts() }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
         composable(route = SINGLELISTING_ROUTE){ SingleListing() }
         composable(route = LOGIN_ROUTE){Login(loginVM, navController)}
     }
 }
+
 
 @Composable
 fun TopBar(navController: NavHostController, loginVM: LoginViewModel) {
@@ -66,19 +65,24 @@ fun TopBar(navController: NavHostController, loginVM: LoginViewModel) {
         .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
     ){
-            Text(text = loginVM.username.value)
-            OutlinedButton(onClick = { if (loginVM.username.value.isEmpty()){
-                    navController.navigate(LOGIN_ROUTE)
-                } else{
-                    loginVM.logout()
-                    navController.navigate(HOME_ROUTE)
-                } }) {
-                if (loginVM.username.value.isEmpty()){
-                    Text(text = "Login")
-                }else {
-                    Text(text = "Logout")
-                }
+        if (loginVM.username.value.isEmpty()){
+            Text(text = "")
+            OutlinedButton(onClick = {navController.navigate(LOGIN_ROUTE)}){
+                Text(text = "Login")
             }
+        } else if (loginVM.username.value == "null") {
+            Text(text = "")
+            OutlinedButton(onClick = {navController.navigate(LOGIN_ROUTE)}){
+                Text(text = "Login")
+            }
+        } else {
+            Text(text = loginVM.username.value)
+            OutlinedButton(onClick = {
+                loginVM.logout()
+                navController.navigate(HOME_ROUTE) }){
+                Text(text = "Logout")
+            }
+        }
     }
 }
 
@@ -106,16 +110,3 @@ fun BottomIcon(navController: NavHostController, route: String, PainterId: Int) 
         Icon(painter = painterResource(id = PainterId), contentDescription ="NavigationIcon", tint = Color.Unspecified)
     }
 }
-
-/*
-
-
-
-OutlinedButton(onClick = { navController.navigate(LOGIN_ROUTE) }) {
-                if (loginVM.username.value != null){
-                    Text(text = "Logout")
-                } else{
-                    Text(text = "Login")
-                }
-            }
-* */

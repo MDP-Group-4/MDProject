@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -42,12 +43,25 @@ fun AccountPage() {
 
 @Composable
 fun NotLoggedAcc() {
-    Column {
-        OutlinedButton(onClick = { /* TODO */}) {
-            Text(text = "Login")
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxHeight()
+        .padding(5.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+            elevation = 10.dp,
+            backgroundColor = UIMain) {
+            Column() {
+                Text(stringResource(id = R.string.AccountPagePleaseLogin), modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+                Text(stringResource(id = R.string.AccountPageNotLogged), modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+            }
         }
     }
 }
+
 
 
 @Composable
