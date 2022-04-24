@@ -30,6 +30,8 @@ const val LISTINGS_ROUTE = "listings"
 const val CREATELISTING_ROUTE = "listing creation"
 const val SINGLELISTING_ROUTE = "singlelisting"
 const val LOGIN_ROUTE = "login"
+const val REGISTER_ROUTE = "Register"
+
 
 @Composable
 fun MainView() {
@@ -53,6 +55,7 @@ fun MainContentView(navController: NavHostController) {
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
         composable(route = SINGLELISTING_ROUTE){ SingleListing() }
         composable(route = LOGIN_ROUTE){Login(loginVM, navController)}
+        composable(route = REGISTER_ROUTE){CreateAccount(navController)}
     }
 }
 

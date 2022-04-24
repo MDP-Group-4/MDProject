@@ -1,10 +1,7 @@
 package com.example.mdproject
 
-import android.app.Activity
-import android.nfc.Tag
-import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+
+
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,54 +9,43 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.example.mdproject.viewmodel.RegisterViewModel
 
 /* email, first name, last name, address, phone number*/
 
-    @Composable
-fun CreateAccount(context: ComponentActivity, ) {
-
-    val auth = Firebase.auth
+@Composable
+fun CreateAccount(NavController : NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
-        val emailValue = remember { mutableStateOf(TextFieldValue()) }
-        val pwValue = remember { mutableStateOf(TextFieldValue()) }
-        val fname = remember { mutableStateOf(TextFieldValue()) }
-        val lname = remember { mutableStateOf(TextFieldValue())}
-        val pnumber = remember { mutableStateOf(TextFieldValue()) }
-        val address = remember { mutableStateOf(TextFieldValue()) }
-        val db = Firebase.firestore
-        val newUser = hashMapOf("Email" to emailValue,
-            "pw" to  pwValue,
-            "fname" to fname,
-            "lname" to lname,
-            "pnumber" to pnumber,
-            "address" to address)
+        val registerVM: RegisterViewModel = viewModel()
+        var emailValue by remember { mutableStateOf("") }
+        var pwValue by remember { mutableStateOf("") }
+        var fname by remember { mutableStateOf("") }
+        var lname by remember { mutableStateOf("") }
+        var pnumber by remember { mutableStateOf("") }
+        var address by remember { mutableStateOf("") }
 
         OutlinedTextField(
             label = {
                 Text(text = "Email")
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            value = emailValue.value,
+            value = emailValue,
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             onValueChange = {
-                emailValue.value = it
+                emailValue = it
             })
         OutlinedTextField(
             label = {
@@ -67,80 +53,60 @@ fun CreateAccount(context: ComponentActivity, ) {
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
-            value = pwValue.value,
+            value = pwValue,
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             onValueChange = {
-                pwValue.value = it
+                pwValue = it
             })
         OutlinedTextField(
             label = {
                 Text(text = "First Name")
             },
-            value = fname.value,
+            value = fname,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             onValueChange ={
-                fname.value = it
+                fname = it
             })
         OutlinedTextField(
             label = {
                 Text(text = "Last Name")
-        },
-                value = lname.value,
+            },
+            value = lname,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             onValueChange ={
-                lname.value = it
-        })
+                lname = it
+            })
         OutlinedTextField(
             label = {
                 Text(text = "Phone Number")
             },
-                value = pnumber.value,
+            value = pnumber,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
             singleLine = true,
             onValueChange= {
-                pnumber.value = it
-        })
+                pnumber = it
+            })
         OutlinedTextField(
             label = {
                 Text(text = "Address")
             },
-            value =address.value,
+            value =address,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             onValueChange ={
-                address.value = it
+                address = it
             })
         Spacer(modifier = Modifier.padding(8.dp))
         OutlinedButton(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = {
-            db.collection("Accounts")
-                .add(newUser)
-            auth.createUserWithEmailAndPassword(
-                emailValue.value.text.trim(),
-                pwValue.value.text.trim()
-            )
-                .addOnCompleteListener(context) { task ->
-                    if (task.isSuccessful) {
-                        Log.d("AUTH" , "Success")
-                        Log.d("AUTH" , "Failed")
-                    } else {
-                        Log.d("AUTH", "Failed: ${task.exception}")
-                        Toast.makeText(
-                            context,
-                            "Email is already in use, please try again",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-        }) { Text(text = "Create an account") }
-
+            onClick = { registerVM.registerAccount(emailValue, pwValue, fname, lname, pnumber, address); NavController.navigate(HOME_ROUTE)
+            }) { Text(text = "Create an account") }
     }}
