@@ -44,7 +44,7 @@ fun MainView() {
 fun MainContentView(navController: NavHostController) {
     val loginVM = viewModel<LoginViewModel>()
     NavHost(navController = navController, startDestination = HOME_ROUTE){
-        composable(route = HOME_ROUTE){ HomePage()}
+        composable(route = HOME_ROUTE){ HomePage(navController)}
         composable(route = LISTINGS_ROUTE){ ListedProducts(navController) }
         composable(route = ACCOUNT_ROUTE){ AccountPage(navController) }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }

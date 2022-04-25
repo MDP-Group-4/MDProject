@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 
-fun HomePage() {
+fun HomePage(navController: NavController) {
     //Text(text = stringResource(id = R.string.Test))
 //    var keyword by remember { mutableStateOf("") }
 
@@ -28,15 +29,11 @@ fun HomePage() {
         Image(painter = painterResource(id = R.drawable.logo), contentDescription = "", modifier = Modifier
             .height(height = 210.dp)
             .fillMaxWidth())
-        Search()
+        Search(navController)
 /*        OutlinedTextField(value = keyword, onValueChange = {keyword = it}, label = { Text(text = "Search")})
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedButton(onClick = { TODO }) {
             Text(text = "Advanced Filters") }*/
-        Spacer(modifier = Modifier.height(50.dp))
-            OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = "Messages")
-    }
 
 
 }}
