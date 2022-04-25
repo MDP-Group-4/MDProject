@@ -39,7 +39,7 @@ fun MainView() {
 @Composable
 fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE){
-        composable(route = HOME_ROUTE){ HomePage()}
+        composable(route = HOME_ROUTE){ HomePage(navController)}
         composable(route = ACCOUNT_ROUTE){ TestCard() } /* CHANGE */
         composable(route = LISTINGS_ROUTE){ ListedProducts(navController) }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
