@@ -1,6 +1,5 @@
-package com.example.mdproject
+package com.example.mdproject.viewmodels
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class SingleListingViewModel: ViewModel() {

@@ -1,10 +1,6 @@
-package com.example.mdproject.viewmodel
+package com.example.mdproject.viewmodels
 
 
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 
 import com.google.firebase.firestore.ktx.firestore
@@ -15,10 +11,10 @@ class RegisterViewModel: ViewModel()  {
 
     fun registerAccount(email: String, password: String, fname: String, lname: String, pnumber: String, address: String) {
         val newUser = hashMapOf("Email" to email,
-                                "FirstName" to fname,
-                                "LastName" to lname,
-                                "PhoneNumber" to pnumber,
-                                "Address" to address
+            "FirstName" to fname,
+            "LastName" to lname,
+            "PhoneNumber" to pnumber,
+            "Address" to address
         )
         Firebase.firestore
             .collection("Accounts")
@@ -27,7 +23,5 @@ class RegisterViewModel: ViewModel()  {
         Firebase.auth.createUserWithEmailAndPassword(
             email, password
         )
-
     }
 }
-

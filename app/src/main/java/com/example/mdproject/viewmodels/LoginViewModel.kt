@@ -1,10 +1,9 @@
-package com.example.mdproject.viewmodel
+package com.example.mdproject.viewmodels
 
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

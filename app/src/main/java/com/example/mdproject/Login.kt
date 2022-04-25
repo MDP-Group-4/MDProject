@@ -11,12 +11,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.mdproject.ui.theme.Whitesmoke
-import com.example.mdproject.viewmodel.AccountDataViewModel
-import com.example.mdproject.viewmodel.LoginViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.example.mdproject.viewmodels.LoginViewModel
 
 @Composable
 fun Login(loginVM: LoginViewModel, NavController : NavHostController){
@@ -63,6 +59,9 @@ fun Login(loginVM: LoginViewModel, NavController : NavHostController){
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedButton(onClick = { loginVM.loginUser(email,pw); NavController.navigate(HOME_ROUTE) }) {
             Text(text = "Login")
+        }
+        OutlinedButton(onClick = { NavController.navigate(REGISTER_ROUTE) }) {
+            Text(text = "Register")
         }
     }
 }

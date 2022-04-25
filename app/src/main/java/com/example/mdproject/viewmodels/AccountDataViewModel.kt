@@ -1,7 +1,6 @@
-package com.example.mdproject.viewmodel
+package com.example.mdproject.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -24,5 +23,18 @@ class AccountDataViewModel: LoginViewModel() {
                 address.value = data.get("Address").toString()
                 phoneNumber.value = data.get("PhoneNumber").toString()
             }
+    }
+
+    fun UpdateData(){
+        val updatedData = hashMapOf("Email" to email.value,
+                        "FirstName" to firstName.value,
+                        "LastName" to lastName.value,
+                        "PhoneNumber" to phoneNumber.value,
+                        "Address" to address.value
+        )
+        Firebase.firestore
+            .collection("Accounts")
+            .document(username.value)
+            .set(updatedData)
     }
 }

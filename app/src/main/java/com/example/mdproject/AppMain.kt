@@ -11,18 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mdproject.viewmodel.AccountDataViewModel
-import com.example.mdproject.viewmodel.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.example.mdproject.viewmodels.LoginViewModel
 
 const val HOME_ROUTE = "home"
 const val ACCOUNT_ROUTE = "account"
@@ -31,7 +26,7 @@ const val CREATELISTING_ROUTE = "listing creation"
 const val SINGLELISTING_ROUTE = "singlelisting"
 const val LOGIN_ROUTE = "login"
 const val REGISTER_ROUTE = "Register"
-
+const val ACCOUNTEDIT_ROUTE = "Account edit"
 
 @Composable
 fun MainView() {
@@ -51,11 +46,12 @@ fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE){
         composable(route = HOME_ROUTE){ HomePage()}
         composable(route = LISTINGS_ROUTE){ ListedProducts(navController) }
-        composable(route = ACCOUNT_ROUTE){ AccountPage() }
+        composable(route = ACCOUNT_ROUTE){ AccountPage(navController) }
         composable(route = CREATELISTING_ROUTE){ ProductListing() }
         composable(route = SINGLELISTING_ROUTE){ SingleListing() }
         composable(route = LOGIN_ROUTE){Login(loginVM, navController)}
         composable(route = REGISTER_ROUTE){CreateAccount(navController)}
+        composable(route = ACCOUNTEDIT_ROUTE){ AccountEdit(navController) }
     }
 }
 

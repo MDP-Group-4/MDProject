@@ -2,7 +2,6 @@ package com.example.mdproject
 
 
 
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedButton
@@ -10,16 +9,12 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.mdproject.viewmodel.RegisterViewModel
-
-/* email, first name, last name, address, phone number*/
+import com.example.mdproject.viewmodels.RegisterViewModel
 
 @Composable
 fun CreateAccount(NavController : NavHostController) {
@@ -29,6 +24,7 @@ fun CreateAccount(NavController : NavHostController) {
             .padding(8.dp)
     ) {
         val registerVM: RegisterViewModel = viewModel()
+
         var emailValue by remember { mutableStateOf("") }
         var pwValue by remember { mutableStateOf("") }
         var fname by remember { mutableStateOf("") }
@@ -96,7 +92,7 @@ fun CreateAccount(NavController : NavHostController) {
             label = {
                 Text(text = "Address")
             },
-            value =address,
+            value = address,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
