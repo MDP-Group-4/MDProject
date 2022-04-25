@@ -16,11 +16,46 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mdproject.ui.theme.UIMain
 import com.example.mdproject.ui.theme.Whitesmoke
-
+import com.example.mdproject.viewmodels.ListingViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun ProductListing() {
+    val user = Firebase.auth.currentUser
+    if (user != null){
+        ProductListingLogged()
+    } else {
+        ProductListingNotLogged()
+    }
+}
+
+@Composable
+fun ProductListingNotLogged() {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxHeight()
+        .padding(5.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+            elevation = 10.dp,
+            backgroundColor = UIMain
+        ) {
+            Column() {
+                Text(stringResource(id = R.string.AccountPagePleaseLogin), modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+                Text(stringResource(id = R.string.AccountPageNotLogged), modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+            }
+        }
+    }
+}
+
+@Composable
+fun ProductListingLogged() {
     var productName by remember { mutableStateOf("") }
     var productPrice by remember { mutableStateOf("") }
     var productDescription by remember { mutableStateOf("") }
@@ -42,7 +77,8 @@ fun ProductListing() {
         TextField(value = productName,
             onValueChange ={ productName = it},
             label = { Text(text = "Title")},
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(vertical = 8.dp, horizontal = 5.dp),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Whitesmoke,
@@ -55,7 +91,8 @@ fun ProductListing() {
         TextField(value = productPrice,
             onValueChange ={ productPrice = it},
             label = { Text(text = "Price")},
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(vertical = 8.dp, horizontal = 5.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = TextFieldDefaults.textFieldColors(

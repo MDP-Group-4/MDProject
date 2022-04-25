@@ -1,42 +1,67 @@
 package com.example.mdproject
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.mdproject.ui.theme.Whitesmoke
+import com.example.mdproject.viewmodels.LoginViewModel
 
 @Composable
-fun Login(){
+fun Login(loginVM: LoginViewModel, NavController : NavHostController){
     var email by remember { mutableStateOf(value="") }
     var pw by remember { mutableStateOf(value = "") }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
+            .height(600.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         androidx.compose.foundation.Image(
             painter = painterResource(id = R.drawable.logo),
-            contentDescription = "",
+            contentDescription = "Logo",
             modifier = Modifier
                 .height(height = 210.dp)
                 .fillMaxWidth()
         )
-        OutlinedTextField(value = email, onValueChange = { email = it}, label = { Text(text = "Email") } )
+
+        TextField(value = email , onValueChange = {email = it}, label = { Text(text = "Email")},
+            modifier = Modifier.width(300.dp),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Whitesmoke,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            singleLine = true
+        )
         Spacer(modifier = Modifier.height(10.dp))
-        OutlinedTextField(value = pw, onValueChange = { pw = it}, label = { Text(text = "Password") } ,
-            visualTransformation = PasswordVisualTransformation())
+        TextField(value = pw , onValueChange = {pw = it}, label = { Text(text = "Password")},
+            modifier = Modifier.width(300.dp),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Whitesmoke,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation()
+        )
         Spacer(modifier = Modifier.height(10.dp))
-        OutlinedButton(onClick = { /*TODO*/ }) {
+        OutlinedButton(onClick = { loginVM.loginUser(email,pw); NavController.navigate(HOME_ROUTE) }) {
             Text(text = "Login")
+        }
+        OutlinedButton(onClick = { NavController.navigate(REGISTER_ROUTE) }) {
+            Text(text = "Register")
         }
     }
 }

@@ -6,6 +6,8 @@
     <string name="PhoneNum">Phone Number: </string>
     <string name="AccountListings">Your Listings</string>
     <string name="ListingCreTop">Create Listing</string>
+    <string name="AccountPagePleaseLogin">Please Login!</string>
+    <string name="AccountPageNotLogged">You have to be logged in to view this page</string>
     <!--Delete later-->
     <string name="TopBarUsername">Test</string>
     <string name="Test">Test</string>
